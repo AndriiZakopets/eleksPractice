@@ -219,6 +219,7 @@ header .planetabhi {
 
 .latest-blog__posts__post {
   width: 31.25%;
+  align-self: flex-start;
 }
 
 .latest-blog__posts__post > a{
