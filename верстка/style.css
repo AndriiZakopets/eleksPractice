@@ -1,0 +1,140 @@
+@font-face {
+  font-family: 'Coco Regular';
+  src: local('Coco Regular'), url('./font/Coco-Regular.woff');
+}
+
+@font-face {
+  font-family: 'Quicksand_Book';
+  src: local('Quicksand_Book'), url('./font/Quicksand_Book.otf');
+}
+
+@font-face {
+  font-family: 'Quicksand_Dash';
+  src: local('Quicksand_Dash'), url('./font/Quicksand_Dash.otf');
+}
+
+body {
+}
+
+.wrapper {
+  max-width: 960px;
+  min-width: 960px;
+  margin: 30px auto;
+}
+
+header .container {
+  padding: 0 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header nav ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+}
+
+header nav a {
+  font-family: 'Quicksand_Book';
+  text-shadow: 0.5px 0.9px 1px rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  text-decoration: none;
+  color: #000000
+}
+
+header nav a:hover {
+  cursor: pointer;
+  color: #969494
+}
+
+header .planetabhi {
+  font-family: 'Coco Regular';
+  font-size: 36px;
+  letter-spacing: 1.8px;
+  color: #000000;
+}
+
+main {
+
+}
+
+.image {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding: 0;
+  width: 960px;
+  height: 420px;
+  background-image: url("./img/scarlett-johansson-1440-x-900-36008_2020-01-14/scarlett-johansson-1440-x-900-36008@3x.png");
+  background-size: 100% 100%;
+}
+
+.image__text {
+  display: flex;
+  align-self: flex-end;
+  margin: 0 0 44px 44px;
+  flex-direction: column;
+  width: 454px;
+  text-align: left;
+  color: #ffffff;
+}
+
+.image__text__header {
+  font-family: 'Quicksand_Book';
+  font-size: 45px;
+  line-height: 1.32;
+  margin-bottom: 11px;
+}
+
+.image__text__paragraph {
+  font-family: 'Quicksand_Dash';
+  font-size: 14px;
+  line-height: 1.43;
+}
+
+.image__readmorebutton {
+  width: 130px;
+  height: 75px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  margin: auto 9px 0 0;
+}
+
+.image__readmorebutton__text {
+  font-family: 'Quicksand_Book';
+  font-size: 16px;
+  text-align: left;
+  color: #ffffff;
+  margin: auto auto 15px auto;
+}
+
+.image__readmorebutton__circle {
+  display: flex;
+  position: absolute;
+  top: 6px;
+  width: 130px;
+  height: 69px;
+  border-radius: 64px 64px 0 0;
+  background-color: black;
+}
+
+.image__readmorebutton__triangle {
+  position: absolute;
+  margin: 0 auto;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid black;
+}
+
+footer {
+
+}
