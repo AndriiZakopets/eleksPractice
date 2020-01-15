@@ -9,16 +9,18 @@
 }
 
 @font-face {
+  font-family: 'Quicksand_Bold';
+  src: local('Quicksand_Bold'), url('./font/Quicksand_Bold.otf');
+}
+
+@font-face {
   font-family: 'Quicksand_Dash';
   src: local('Quicksand_Dash'), url('./font/Quicksand_Dash.otf');
 }
 
-body {
-}
-
 .wrapper {
   max-width: 960px;
-  min-width: 960px;
+  min-width: 800px;
   margin: 30px auto;
 }
 
@@ -29,14 +31,23 @@ header .container {
   align-items: center;
 }
 
-header nav ul {
-  list-style-type: none;
-  display: flex;
-  justify-content: space-between;
+header ul {
   width: 400px;
 }
 
-header nav a {
+footer ul {
+  width: 222px;
+}
+
+nav ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+nav a {
   font-family: 'Quicksand_Book';
   text-shadow: 0.5px 0.9px 1px rgba(255, 255, 255, 0.75);
   font-size: 12px;
@@ -44,7 +55,7 @@ header nav a {
   color: #000000
 }
 
-header nav a:hover {
+nav a:hover {
   cursor: pointer;
   color: #969494
 }
@@ -56,19 +67,15 @@ header .planetabhi {
   color: #000000;
 }
 
-main {
-
-}
-
 .image {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
   margin-top: 30px;
-  padding: 0;
-  width: 960px;
-  height: 420px;
+  padding-top: 43.75%;
+  width: 100%;
+  height: 0;
   background-image: url("./img/scarlett-johansson-1440-x-900-36008_2020-01-14/scarlett-johansson-1440-x-900-36008@3x.png");
   background-size: 100% 100%;
 }
@@ -135,6 +142,179 @@ main {
   border-bottom: 10px solid black;
 }
 
-footer {
+.looks-items-trends {
+  margin: 56px auto 0 0;
+  display: flex;
+  flex-direction: rows;
+  justify-content: space-evenly;
+}
 
+.looks-items-trends > div{
+  width: 31%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Quicksand_Book';
+}
+
+.looks-items-trends__ico {
+  object-fit: contain;
+}
+
+.looks-items-trends__heading {
+  margin-top: 20px;
+  text-shadow: 0.5px 0.9px 1px rgba(255, 255, 255, 0.75);
+  font-size: 20px;
+  line-height: 1.8;
+  text-align: center;
+  color: #221e1d;
+}
+
+.looks-items-trends__paragraph {
+  margin-top: 10px;
+  text-shadow: 0.5px 0.9px 1px rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  line-height: 1.67;
+  text-align: justify;
+  color: #363636;
+}
+
+.latest-blog {
+ display: flex;
+ flex-direction: column;
+ margin-top: 60px;
+}
+
+.latest-blog__heading {
+ display: flex;
+ width: 100%;
+ flex-direction: row;
+ justify-content: space-between;
+ align-items: center;
+}
+
+.latest-blog__heading__hr {
+  flex: 34%;
+}
+
+.latest-blog__heading__text {
+ flex: 32%;
+ text-align: center;
+ font-family: 'Quicksand_Book';
+ font-size: 24px;
+ line-height: 0.83;
+ letter-spacing: -1.2px;
+ color: #221e1d;
+}
+
+.latest-blog__posts {
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  align-items: center;
+}
+
+.latest-blog__posts__post {
+  width: 31.25%;
+}
+
+.latest-blog__posts__post > a{
+  text-decoration: none;
+}
+
+.latest-blog__posts__post__image {
+  background-color: black;
+  width: 100%;
+  height: 0;
+  padding-top: 48%;
+}
+
+.latest-blog__posts__post__text {
+  margin-top: 60px;
+  font-family: 'Quicksand_Book';
+  color: #000000;
+}
+
+.latest-blog__posts__post__text__heading {
+  font-size: 20px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.latest-blog__posts__post__text__date {
+  margin-top: 24px;
+  font-size: 13px;
+  letter-spacing: -0.65px;
+  text-align: center;
+  color: #969494;
+}
+
+.latest-blog__posts__post__text__article {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.67;
+}
+
+.latest-blog__posts__post__text__article__p {
+  color: #221e1d;
+}
+
+.latest-blog__posts__post__text__article__readmore {
+  color: #78958e;
+}
+
+.body__hr {
+  margin-top: 70px;
+  margin-bottom: 0;
+}
+
+footer {
+  margin-top: 36px;;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
+.footer__nav-share {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__nav-share__share {
+  margin-top: 10px;
+}
+
+.copyright {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  font-family: 'Quicksand_Book';
+}
+
+#copyright__AbhimanyuRana {
+  font-family: 'Quicksand_Bold';
+}
+
+.copyright :nth-child(1) {
+  font-size: 12px;
+  line-height: 24px;
+  text-align: right;
+  color: #000000;
+}
+
+.copyright :nth-child(2) {
+  font-size: 12px;
+  line-height: 2;
+  text-align: right;
+  color: #969494;
+}
+
+#copyright__planetabhi {
+  color: #78958e;
 }
