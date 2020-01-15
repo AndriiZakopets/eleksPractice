@@ -1,0 +1,124 @@
+@font-face {
+  font-family: 'Coco_Regular';
+  src: url(./font/Coco_Regular.woff);
+}
+
+@font-face {
+  font-family: 'MyriadPro_Regular';
+  src: url(./font/MyriadPro_Regular.otf);
+}
+
+@font-face {
+  font-family: 'Quicksand_Book';
+  src: url(./font/Quicksand_Book.otf);
+}
+
+@font-face {
+  font-family: 'Quicksand_Bold';
+  src: url(./font/Quicksand_Bold.otf);
+}
+
+@font-face {
+  font-family: 'Quicksand_Dash';
+  src: url(./font/Quicksand_Dash.otf);
+}
+
+body {
+  background-color: #fff;
+}
+
+.wrapper {
+  margin: 30px auto;
+  width: 960px;
+}
+
+.planetabhi {
+  margin: 0;
+  padding: 0;
+  font-family: 'Coco_Regular';
+  font-size: 36px;
+  letter-spacing: 1.8px;
+  text-align: left;
+  color: #000000;
+}
+
+.nav {
+  .nav__list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    .nav__list__item>a {
+      text-shadow: 0.5px 0.9px 1px rgba(255, 255, 255, 0.75);
+      font-family: 'Quicksand_Book';
+      color: #000000;
+      text-decoration: none;
+      &:hover {
+        cursor: pointer;
+        color: #969494
+      }
+    }
+  }
+}
+
+.header {
+  margin: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .nav__header {
+    width: 400px;
+  }
+}
+
+.footer-separator {
+  width: 100%;
+  height: 1px;
+  position: relative;
+  background-color: #000;
+}
+
+.footer {
+  margin: 35px 0 0 0;
+  height: 44px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+  .nav__footer {
+    width: 222px;
+  }
+}
+
+.nav-share {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.copyright {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Quicksand_Book';
+  color: #000;
+  font-size: 12px;
+  line-height: 2;
+  text-align: right;
+  .copyright__first {
+    .copyright__first__copyright-sign {
+      font-family: 'MyriadPro_Regular';
+    }
+    .copyright__first__bold-text {
+      font-family: 'Quicksand_Bold';
+    }
+  }
+  .copyright__second {
+    color: #969494;
+    .copyright__second__planetabhi {
+      color: #78958e;
+    }
+  }
+}
