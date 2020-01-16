@@ -23,10 +23,6 @@
   src: url(./font/Quicksand_Dash.otf);
 }
 
-body {
-  background-color: #fff;
-}
-
 .wrapper {
   margin: 30px auto;
   width: 960px;

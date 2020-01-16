@@ -23,10 +23,6 @@
   src: url(./font/Quicksand_Dash.otf);
 }
 
-body {
-  background-color: #fff;
-}
-
 .wrapper {
   margin: 30px auto;
   width: 960px;
@@ -42,23 +38,21 @@ body {
   color: #000000;
 }
 
-.nav {
-  .nav__list {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    font-size: 12px;
-    display: flex;
-    justify-content: space-between;
-    .nav__list__item>a {
-      text-shadow: 0.5px 0.9px 1px rgba(255, 255, 255, 0.75);
-      font-family: 'Quicksand_Book';
-      color: #000000;
-      text-decoration: none;
-      &:hover {
-        cursor: pointer;
-        color: #969494
-      }
+.nav .nav__list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  .nav__list__item > a {
+    text-shadow: 0.5px 0.9px 1px rgba(255, 255, 255, 0.75);
+    font-family: 'Quicksand_Book';
+    color: #000000;
+    text-decoration: none;
+    &:hover {
+      cursor: pointer;
+      color: #969494
     }
   }
 }
