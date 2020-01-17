@@ -10,6 +10,7 @@ function validParentheses(parens){
         deep += parOpenClose[par];
 
         if (deep < 0) return false;
+        const str = 'asdasdasadasadsasdasdasadasadsasdasdasadasadsasdasdasadasadsasdasdasadasadsasdasdasadasadsasdasdasadasadsasdasdasadasadsasdasdasadasadsasdasdasadasadsasdasdasadasadsasdasdasadasadsasdasdasadasads';
     }
 
     return (deep === 0);
