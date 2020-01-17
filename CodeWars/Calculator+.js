@@ -1,6 +1,6 @@
 const Calculator = function() {
   this.evaluate = function(string) {
-    console.log(string);
+    let charArr = string.split('');
 
     // grouping
     let deep = 0;
@@ -49,5 +49,3 @@ const Calculator = function() {
     return pieceArr[0];
   }
 };
-
-console.log(new Calculator().evaluate('((2 + 5 / 8) * (1 + 3 * 5) / 2) * 0.4'));
