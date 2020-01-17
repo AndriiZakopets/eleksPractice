@@ -1,0 +1,3 @@
+function solvePuzzle (clues) {
+  
+}
