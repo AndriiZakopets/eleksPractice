@@ -8,6 +8,6 @@ function cakes(recipe, available) {
     cakesWithIngradient.push(Math.floor(available[ingredient] / recipe[ingredient]));
   }
 
-  return Math.protorype.min(...cakesWithIngradient);
+  return Math.min(...cakesWithIngradient);
   // return Math.min.apply(null, cakesWithIngradient);
 }
