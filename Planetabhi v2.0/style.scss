@@ -72,22 +72,11 @@
   margin-bottom: 50px;
   display: flex;
   position: relative;
-  .picture__img {
-    width: 100%;
-    object-fit: contain;
-  }
-  .picture__container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: nowrap;
-    align-content: unset;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    color: white;
-  }
+  width: 100%;
+  height: 0;
+  padding-bottom: 43.75%;
+  background-size: cover;
+  background-image: url(./img/scarlett-johansson-1440-x-900-36008.png);
   .picture__title {
     display: flex;
     flex-direction: column;
