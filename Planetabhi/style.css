@@ -143,7 +143,6 @@ header .planetabhi {
 .looks-items-trends {
   margin: 56px auto 0 0;
   display: flex;
-  flex-direction: rows;
   justify-content: space-evenly;
 }
 
