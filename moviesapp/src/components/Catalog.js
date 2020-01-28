@@ -1,3 +1,4 @@
+import debounce from 'lodash/debounce'
 import React from 'react';
 import API from '../API'
 import './styles/Catalog.css';
@@ -6,65 +7,118 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItem from './ListItem';
 
+const TRENDING = 'trending';
+const POPULAR = 'popular';
+const TOP = 'top';
+
+const REQUEST_MAP = {
+  [TRENDING]: API.getTrending,
+  [POPULAR]: API.getPopular,
+  [TOP]: API.getTopRated
+}
+
 class Catalog extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    tempSearchQuery: '',
+    settings: {
+      sorting: localStorage.getItem('sorting') || 'trending',
+      page: localStorage.getItem('page') || 1,
+      searchQuery: ''
+    },
+    data: []
+  };
 
-    this.state = {
-      sorting: localStorage.getItem('sorting') ? localStorage.getItem('sorting') : 'trending',
-      page: localStorage.getItem('page') ? localStorage.getItem('page') : 1,
-      searchQuery: '',
-      data: [],
-      ifSortingDisabled: false
-    }
-
-    this.changeData(this.state.page);
-
-    this.searchOnEnter = this.searchOnEnter.bind(this);
-    this.changeData = this.changeData.bind(this);
+  componentDidMount () {
+    this.fetchData();
   }
 
-  searchOnEnter(e) {
-    const str = e.target.value;
-    if (e.keyCode !== 13) return;
-
-    this.setState({ isSortingDisabled: /\S/.test(str), searchQuery: str }, this.changeData);
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.settings !== prevState.settings) {
+      this.fetchData();
+    }
   }
 
-  changeData() {
-    const changeState = resp => {
-      const data = resp['results'];
-      this.setState({ data });
-    }
+  changeData = ({ results }) => {
+    this.setState({ data: results });
+  }
 
-    if (this.state.isSortingDisabled) {
-      API.getMovieByQuery(1, this.state.searchQuery).then(changeState);
+  changeSettings = (update = {}) => {
+    this.setState(prevState => ({
+      settings: {
+        ...prevState.settings,
+        page: 10,
+        ...update
+      }
+    }))
+  }
+
+  onChange = searchQuery => {
+    this.changeSettings({ searchQuery });
+  };
+
+  onChangeDebounced = debounce(this.onChange, 400);
+
+  onTextChange = e => {
+    this.setState({ tempSearchQuery: e.target.value });
+
+    this.onChangeDebounced(e.target.value);
+  }
+
+  fetchData = () => {
+    const { searchQuery, sorting, page } = this.state.settings;
+
+    if (searchQuery) {
+      API.getMovieByQuery(page, searchQuery).then(this.changeData);
     } else {
-      if (this.state.sorting === 'trending') API.getTrending(1).then(changeState);
-      if (this.state.sorting === 'popular') API.getPopular(1).then(changeState);
-      if (this.state.sorting === 'top') API.getTopRated(1).then(changeState);
+      const requestFunc = REQUEST_MAP[sorting];
+
+      if (requestFunc) {
+        requestFunc(page).then(this.changeData);
+      }
     }
   }
 
-  onSelectChange = (e) => {
+  onSelectChange = e => {
     localStorage.setItem('sorting', e.target.value);
-    this.setState({ sorting: e.target.value }, this.changeData)
+    this.changeSettings({ sorting: e.target.value })
   }
 
   render() {
+    const { tempSearchQuery, data, settings: { searchQuery, sorting } } = this.state;
+
     return (
       <div className="Catalog">
         <div className="filters">
-          <TextField defaultValue={this.state.searchQuery} label="Search" onKeyUp={this.searchOnEnter} />
-          <Select disabled={this.state.isSortingDisabled} onChange={this.onSelectChange} value={this.state.sorting} >
-            <MenuItem value="trending">trending</MenuItem>
-            <MenuItem value="popular">popular</MenuItem>
-            <MenuItem value="top">top</MenuItem>
+          <TextField
+            label="Search"
+            value={tempSearchQuery}
+            onChange={this.onTextChange}
+          />
+          <Select
+            disabled={!!searchQuery}
+            onChange={this.onSelectChange}
+            value={sorting}
+          >
+            <MenuItem value="trending">
+              trending
+            </MenuItem>
+            <MenuItem value="popular">
+              popular
+            </MenuItem>
+            <MenuItem value="top">
+              top
+            </MenuItem>
           </Select>
         </div>
         <div className="list">
           {
-            this.state.data.map(movie => <ListItem key={movie.id} history={this.props.history} movie={movie}/>)
+            data.map(movie => (
+              <ListItem
+                movie={movie}
+                key={movie.id}
+                history={this.props.history}
+              />
+            ))
           }
         </div>
       </div>
