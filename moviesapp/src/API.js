@@ -5,6 +5,7 @@ const api_key = '4f7b4e11c29b41270f152fa71698f126';
 export default {
   async getDetails(id) {
     try {
+      console.log('getDetails');
       return (await axios.get(`https://api.themoviedb.org/3/movie/${id}`, { params: { api_key } })).data;
     } catch(error) {
       throw error;
@@ -12,7 +13,7 @@ export default {
   },
   async getPopular(page = 1) {
     try {
-      console.log('popular');
+      console.log('getPopular');
       return (await axios.get(`https://api.themoviedb.org/3/movie/popular`, { params: { api_key, page } })).data;
     } catch(error) {
       throw error;
@@ -20,7 +21,7 @@ export default {
   },
   async getTopRated(page = 1) {
     try {
-      console.log('topRated');
+      console.log('getTopRated');
       return (await axios.get(`https://api.themoviedb.org/3/movie/top_rated`, { params: { api_key, page } })).data;
     } catch(error) {
       throw error;
@@ -28,7 +29,7 @@ export default {
   },
   async getTrending(page = 1) {
     try {
-      console.log('trending');
+      console.log('getTrending');
       return (await axios.get(`https://api.themoviedb.org/3/trending/movie/week`, { params: { api_key, page } })).data;
     } catch(error) {
       throw error;
@@ -36,7 +37,7 @@ export default {
   },
   async getMovieByQuery(page = 1, query) {
     try {
-      console.log('search');
+      console.log('getMovieByQuery');
       return (await axios.get(`https://api.themoviedb.org/3/search/movie`, { params: { api_key, page, query } })).data;
     } catch(error) {
       throw error;

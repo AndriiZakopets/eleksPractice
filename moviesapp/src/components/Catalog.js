@@ -1,11 +1,110 @@
-import debounce from 'lodash/debounce'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import API from '../API'
-import './styles/Catalog.css';
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import Filters from './Filters'
 import ListItem from './ListItem';
+
+// const TRENDING = 'trending';
+// const POPULAR = 'popular';
+// const TOP = 'top';
+
+// const REQUEST_MAP = {
+//   [TRENDING]: API.getTrending,
+//   [POPULAR]: API.getPopular,
+//   [TOP]: API.getTopRated
+// }
+
+// function Catalog(props) {
+//   const [tempSearchQuery, setTempSearchQuery] = useState('');
+//   const [data, setData] = useState([]);
+//   const [settings, setSettings] = useState({
+//     sorting: localStorage.getItem('sorting') || 'trending',
+//     page: localStorage.getItem('page') || 1,
+//     searchQuery: ''
+//   });
+
+//   useEffect((_prevProps, _prevState) => {
+//     localStorage.setItem('page', settings.page);
+//     fetchData();
+//   }, [settings]);
+
+//   const changeData =  ({ results }) => setData(results);
+
+//   const fetchData = () => {
+//     const { searchQuery, sorting, page } = settings;
+
+//     if (searchQuery) {
+//       API.getMovieByQuery(page, searchQuery).then(changeData);
+//     } else {
+//       const requestFunc = REQUEST_MAP[sorting];
+
+//       if (requestFunc) {
+//         requestFunc(page).then(changeData);
+//       }
+//     }
+//   }
+
+//   const changeSettings = (update = {}) => {
+//     setSettings(prevState => ({
+//       ...prevState,
+//       page: 1,
+//       ...update
+//     }));
+//   }
+
+//   const onChange = searchQuery => {
+//     changeSettings({ searchQuery });
+//   };
+
+//   const onChangeDebounced = debounce(onChange, 400);
+
+//   const onTextChange = e => {
+//     setTempSearchQuery(e.target.value);
+//     onChangeDebounced(e.target.value);
+//   }
+
+//   const onSelectChange = e => {
+//     localStorage.setItem('sorting', e.target.value);
+//     changeSettings({ sorting: e.target.value })
+//   }
+
+//   return (
+//     <div className="Catalog">
+//       <div className="filters">
+//         <TextField
+//           label="Search"
+//           value={tempSearchQuery}
+//           onChange={onTextChange}
+//         />
+//         <Select
+//           disabled={!!settings.searchQuery}
+//           onChange={onSelectChange}
+//           value={settings.sorting}
+//         >
+//           <MenuItem value="trending">
+//             trending
+//           </MenuItem>
+//           <MenuItem value="popular">
+//             popular
+//           </MenuItem>
+//           <MenuItem value="top">
+//             top
+//           </MenuItem>
+//         </Select>
+//       </div>
+//       <div className="list">
+//         {
+//           data.map(movie => (
+//             <ListItem
+//               movie={movie}
+//               key={movie.id}
+//               history={props.history}
+//             />
+//           ))
+//         }
+//       </div>
+//     </div>
+//   );
+// }
 
 const TRENDING = 'trending';
 const POPULAR = 'popular';
@@ -17,113 +116,63 @@ const REQUEST_MAP = {
   [TOP]: API.getTopRated
 }
 
-class Catalog extends React.Component {
-  state = {
-    tempSearchQuery: '',
-    settings: {
-      sorting: localStorage.getItem('sorting') || 'trending',
-      page: localStorage.getItem('page') || 1,
-      searchQuery: ''
-    },
-    data: []
-  };
+function Catalog(props) {;
+  const [data, setData] = useState([]);
+  const [settings, setSettings] = useState({
+    sorting: localStorage.getItem('sorting') || 'trending',
+    page: localStorage.getItem('page') || 1,
+    searchQuery: ''
+  });
 
-  componentDidMount () {
-    this.fetchData();
+  const changeSettings = (newSettings = {}) => {
+    console.log(newSettings.searchQuery);
+    setSettings(prevSettings => ({
+      ...prevSettings,
+      page: 1,
+      ...newSettings
+    }));
   }
 
-  componentDidUpdate (prevProps, prevState) {
-    if (this.state.settings !== prevState.settings) {
-      this.fetchData();
-    }
-  }
+  useEffect(() => {
+    localStorage.setItem('page', settings.page);
+    fetchData();
+  }, [settings]);
 
-  changeData = ({ results }) => {
-    this.setState({ data: results });
-  }
+  const changeData =  ({ results }) => setData(results);
 
-  changeSettings = (update = {}) => {
-    this.setState(prevState => ({
-      settings: {
-        ...prevState.settings,
-        page: 10,
-        ...update
-      }
-    }))
-  }
-
-  onChange = searchQuery => {
-    this.changeSettings({ searchQuery });
-  };
-
-  onChangeDebounced = debounce(this.onChange, 400);
-
-  onTextChange = e => {
-    this.setState({ tempSearchQuery: e.target.value });
-
-    this.onChangeDebounced(e.target.value);
-  }
-
-  fetchData = () => {
-    const { searchQuery, sorting, page } = this.state.settings;
+  const fetchData = () => {
+    const { searchQuery, sorting, page } = settings;
 
     if (searchQuery) {
-      API.getMovieByQuery(page, searchQuery).then(this.changeData);
+      API.getMovieByQuery(page, searchQuery).then(changeData);
     } else {
       const requestFunc = REQUEST_MAP[sorting];
 
       if (requestFunc) {
-        requestFunc(page).then(this.changeData);
+        requestFunc(page).then(changeData);
       }
     }
   }
 
-  onSelectChange = e => {
-    localStorage.setItem('sorting', e.target.value);
-    this.changeSettings({ sorting: e.target.value })
-  }
-
-  render() {
-    const { tempSearchQuery, data, settings: { searchQuery, sorting } } = this.state;
-
-    return (
-      <div className="Catalog">
-        <div className="filters">
-          <TextField
-            label="Search"
-            value={tempSearchQuery}
-            onChange={this.onTextChange}
-          />
-          <Select
-            disabled={!!searchQuery}
-            onChange={this.onSelectChange}
-            value={sorting}
-          >
-            <MenuItem value="trending">
-              trending
-            </MenuItem>
-            <MenuItem value="popular">
-              popular
-            </MenuItem>
-            <MenuItem value="top">
-              top
-            </MenuItem>
-          </Select>
-        </div>
-        <div className="list">
-          {
-            data.map(movie => (
-              <ListItem
-                movie={movie}
-                key={movie.id}
-                history={this.props.history}
-              />
-            ))
-          }
-        </div>
+  return (
+    <div className="Catalog">
+      <Filters 
+        settings={settings} 
+        changeSettings={changeSettings}
+      />
+      <div className="list">
+        {
+          data.map(movie => (
+            <ListItem
+              movie={movie}
+              key={movie.id}
+              history={props.history}
+            />
+          ))
+        }
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Catalog;
