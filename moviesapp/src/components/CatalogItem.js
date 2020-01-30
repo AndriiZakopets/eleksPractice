@@ -6,9 +6,9 @@ function Catalog(props) {
   const [movie, setMovie] = useState({});
 
   useEffect(() => {
-    if (props.cacheData[id]) {
+    if (props.dataById[id]) {
       setMovie({
-        ...props.cacheData[id]
+        ...props.dataById[id]
       });
     } else {
       API.getDetails(id)
@@ -16,7 +16,7 @@ function Catalog(props) {
         setMovie({ ...movie });
       });
     }
-  }, [id, props.cacheData]);
+  }, [id]);
 
   return (
     <div className="container">
@@ -25,10 +25,17 @@ function Catalog(props) {
         src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} 
         alt={movie.title}
       />
-      <span className="CatalogItem_title">{movie.title}({movie.release_date})</span>
-      <span className="overview">{movie.overview}</span>
+      <div className="CatalogItem_title">
+        {movie.title}
+      </div>
+      <div className="date">
+        {movie.release_date}
+      </div>
+      <div className="overview">
+        {movie.overview}
+      </div>
     </div>
   );
 }
 
-export default Catalog;
+export default React.memo(Catalog);
