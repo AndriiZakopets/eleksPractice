@@ -1,110 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import debounce from 'lodash/debounce';
 import API from '../API'
 import Filters from './Filters'
 import ListItem from './ListItem';
-
-// const TRENDING = 'trending';
-// const POPULAR = 'popular';
-// const TOP = 'top';
-
-// const REQUEST_MAP = {
-//   [TRENDING]: API.getTrending,
-//   [POPULAR]: API.getPopular,
-//   [TOP]: API.getTopRated
-// }
-
-// function Catalog(props) {
-//   const [tempSearchQuery, setTempSearchQuery] = useState('');
-//   const [data, setData] = useState([]);
-//   const [settings, setSettings] = useState({
-//     sorting: localStorage.getItem('sorting') || 'trending',
-//     page: localStorage.getItem('page') || 1,
-//     searchQuery: ''
-//   });
-
-//   useEffect((_prevProps, _prevState) => {
-//     localStorage.setItem('page', settings.page);
-//     fetchData();
-//   }, [settings]);
-
-//   const changeData =  ({ results }) => setData(results);
-
-//   const fetchData = () => {
-//     const { searchQuery, sorting, page } = settings;
-
-//     if (searchQuery) {
-//       API.getMovieByQuery(page, searchQuery).then(changeData);
-//     } else {
-//       const requestFunc = REQUEST_MAP[sorting];
-
-//       if (requestFunc) {
-//         requestFunc(page).then(changeData);
-//       }
-//     }
-//   }
-
-//   const changeSettings = (update = {}) => {
-//     setSettings(prevState => ({
-//       ...prevState,
-//       page: 1,
-//       ...update
-//     }));
-//   }
-
-//   const onChange = searchQuery => {
-//     changeSettings({ searchQuery });
-//   };
-
-//   const onChangeDebounced = debounce(onChange, 400);
-
-//   const onTextChange = e => {
-//     setTempSearchQuery(e.target.value);
-//     onChangeDebounced(e.target.value);
-//   }
-
-//   const onSelectChange = e => {
-//     localStorage.setItem('sorting', e.target.value);
-//     changeSettings({ sorting: e.target.value })
-//   }
-
-//   return (
-//     <div className="Catalog">
-//       <div className="filters">
-//         <TextField
-//           label="Search"
-//           value={tempSearchQuery}
-//           onChange={onTextChange}
-//         />
-//         <Select
-//           disabled={!!settings.searchQuery}
-//           onChange={onSelectChange}
-//           value={settings.sorting}
-//         >
-//           <MenuItem value="trending">
-//             trending
-//           </MenuItem>
-//           <MenuItem value="popular">
-//             popular
-//           </MenuItem>
-//           <MenuItem value="top">
-//             top
-//           </MenuItem>
-//         </Select>
-//       </div>
-//       <div className="list">
-//         {
-//           data.map(movie => (
-//             <ListItem
-//               movie={movie}
-//               key={movie.id}
-//               history={props.history}
-//             />
-//           ))
-//         }
-//       </div>
-//     </div>
-//   );
-// }
 
 const TRENDING = 'trending';
 const POPULAR = 'popular';
@@ -116,8 +14,9 @@ const REQUEST_MAP = {
   [TOP]: API.getTopRated
 }
 
-function Catalog(props) {;
+function Catalog({ history, changeCacheData }) {;
   const [data, setData] = useState([]);
+  const [totalPages , setTotalPages] = useState(0);
   const [settings, setSettings] = useState({
     sorting: localStorage.getItem('sorting') || 'trending',
     page: localStorage.getItem('page') || 1,
@@ -125,40 +24,62 @@ function Catalog(props) {;
   });
 
   const changeSettings = (newSettings = {}) => {
-    console.log(newSettings.searchQuery);
-    setSettings(prevSettings => ({
-      ...prevSettings,
+    setSettings(prevState => ({
+      ...prevState,
       page: 1,
       ...newSettings
     }));
   }
 
-  useEffect(() => {
-    localStorage.setItem('page', settings.page);
-    fetchData();
+  const changeSettingsDebounced = debounce(changeSettings, 400);
+
+  const getRequestFunc = useCallback(() => {
+    const { searchQuery, sorting, page } = settings;
+    const requestFunc = (searchQuery.trim()) ? 
+    API.getMovieByQuery.bind(null, page, searchQuery) : 
+    REQUEST_MAP[sorting].bind(null, page);
+
+    return requestFunc;
+    // .then(({ results }) => setData(results))
+    // .catch(alert);
   }, [settings]);
 
-  const changeData =  ({ results }) => setData(results);
 
-  const fetchData = () => {
-    const { searchQuery, sorting, page } = settings;
+  const addCacheData = useCallback(() => {
+    const additionData = {};
 
-    if (searchQuery) {
-      API.getMovieByQuery(page, searchQuery).then(changeData);
-    } else {
-      const requestFunc = REQUEST_MAP[sorting];
+    data.forEach(dataItem => {
+      additionData[dataItem.id] = dataItem;
+    });
 
-      if (requestFunc) {
-        requestFunc(page).then(changeData);
-      }
-    }
-  }
+    changeCacheData(additionData);
+  }, [data, changeCacheData]);
+  
+  useEffect(() => {
+    const requestFunc = getRequestFunc();
+
+    requestFunc()
+    .then(({total_pages, results}) => {
+      setData(results);
+      setTotalPages(total_pages);
+    })
+  }, [getRequestFunc]);
+
+  useEffect(() => {
+    localStorage.setItem('page', settings.page);
+    localStorage.setItem('sorting', settings.sorting);
+  }, [settings]);
+
+  useEffect(() => {
+    addCacheData();
+  }, [addCacheData]);
 
   return (
     <div className="Catalog">
       <Filters 
         settings={settings} 
         changeSettings={changeSettings}
+        changeSettingsDebounced={changeSettingsDebounced}
       />
       <div className="list">
         {
@@ -166,7 +87,7 @@ function Catalog(props) {;
             <ListItem
               movie={movie}
               key={movie.id}
-              history={props.history}
+              history={history}
             />
           ))
         }

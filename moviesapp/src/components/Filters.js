@@ -1,30 +1,18 @@
-import debounce from 'lodash/debounce'
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-function Filters( {settings, changeSettings} ) {
+function Filters( {changeSettingsDebounced, changeSettings, settings} ) {
   const [searchQuery, setSearchQuery] = useState('');
   const [sorting, setSorting] = useState(settings.sorting);
-  const [isSortingDisabled, setIsSortingDisabled] = useState(false);
 
-  const onChange = (searchQuery) => {
-    changeSettings({ searchQuery });
-  }
-
-  const onChangeSettingsDebounced = debounce(onChange, 1000);
-
-  useEffect(() => {
-    setIsSortingDisabled(!!searchQuery.trim());
-    onChangeSettingsDebounced(searchQuery);
-  }, [searchQuery]);
-
-  const onSearchQueryChange = (e) => {
+  const onSearchQueryChange = e => {
     setSearchQuery(e.target.value);
+    changeSettingsDebounced({ searchQuery: e.target.value });
   }
 
-  const onSortingChange = (e) => {
+  const onSortingChange = e => {
     setSorting(e.target.value);
     changeSettings({ sorting: e.target.value });
   }
@@ -37,7 +25,7 @@ function Filters( {settings, changeSettings} ) {
         onChange={onSearchQueryChange}
       />
       <Select
-        disabled={isSortingDisabled}
+        disabled={!!searchQuery.trim()}
         onChange={onSortingChange}
         value={sorting}
       >

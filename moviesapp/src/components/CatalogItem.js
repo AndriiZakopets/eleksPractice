@@ -1,35 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import API from '../API';
 
-class Catalog extends React.Component {
-  constructor(props) {
-    super(props);
+function Catalog(props) {
+  const id = props.match.params.id;
+  const [movie, setMovie] = useState({});
 
-    this.state = {
-      movie: {},
-      year: ''
+  useEffect(() => {
+    if (props.cacheData[id]) {
+      setMovie({
+        ...props.cacheData[id]
+      });
+    } else {
+      API.getDetails(id)
+      .then(movie => {
+        setMovie({ ...movie });
+      });
     }
+  }, [id, props.cacheData]);
 
-    API.getDetails(this.props.match.params.id)
-    .then(movie => {
-      this.setState({ movie, year: movie.release_date.split('-')[0] })
-    })
-  }
-
-  render() {
-    console.log(this.state.movie);
-    return (
-      <div className="container">
-        <img 
-          className="CatalogItem_image-content" 
-          src={`https://image.tmdb.org/t/p/original${this.state.movie.backdrop_path}`} 
-          alt={this.state.movie.title}
-        />
-        <span className="CatalogItem_title">{this.state.movie.title}({this.state.year})</span>
-        <span className="overview">{this.state.movie.overview}</span>
-      </div>
-    );
-  }
+  return (
+    <div className="container">
+      <img 
+        className="CatalogItem_image-content" 
+        src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} 
+        alt={movie.title}
+      />
+      <span className="CatalogItem_title">{movie.title}({movie.release_date})</span>
+      <span className="overview">{movie.overview}</span>
+    </div>
+  );
 }
 
 export default Catalog;
