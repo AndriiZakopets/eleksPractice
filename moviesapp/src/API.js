@@ -8,9 +8,10 @@ async function callApi(url, page, query) {
 }
 
 export default {
-  getDetails: async id => callApi(`https://api.themoviedb.org/3/movie/${id}`),
-  getPopular: async ({ page }) => callApi(`https://api.themoviedb.org/3/movie/popular`, page),
-  getTopRated: async ({ page }) => callApi(`https://api.themoviedb.org/3/movie/top_rated`, page),
-  getTrending: async ({ page }) => callApi(`https://api.themoviedb.org/3/trending/movie/week`, page),
-  getMovieByQuery: async ({ page, searchQuery: query }) => callApi(`https://api.themoviedb.org/3/search/movie`, page, query)
+  getDetails: id => callApi(`https://api.themoviedb.org/3/movie/${id}`),
+  getPopular: ({ page }) => callApi(`https://api.themoviedb.org/3/movie/popular`, page),
+  getTopRated: ({ page }) => callApi(`https://api.themoviedb.org/3/movie/top_rated`, page),
+  getTrending: ({ page }) => callApi(`https://api.themoviedb.org/3/trending/movie/week`, page),
+  getMovieByQuery: ({ page, searchQuery: query }) => callApi(`https://api.themoviedb.org/3/search/movie`, page, query),
+  getMovieDiscover: ({ page, searchQuery: query }) => callApi(`https://api.themoviedb.org/3/search/movie`, page, query)
 }

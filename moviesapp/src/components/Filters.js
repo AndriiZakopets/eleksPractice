@@ -1,25 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import debounce from 'lodash/debounce';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-function Filters( {changeSettings, settings} ) {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sorting, setSorting] = useState(settings.sorting);
-
-  const changeSettingsDebounced = useCallback(debounce(changeSettings, 400), []);
-
-  const onSearchQueryChange = e => {
-    setSearchQuery(e.target.value);
-    changeSettingsDebounced({ searchQuery: e.target.value });
-  }
-
-  const onSortingChange = e => {
-    setSorting(e.target.value);
-    changeSettings({ sorting: e.target.value });
-  }
-
+function Filters( {onSortingChange, onSearchQueryChange, searchQuery, sorting} ) {
   return (
     <div className="filters">
       <TextField
