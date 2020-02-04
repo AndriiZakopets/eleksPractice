@@ -9,7 +9,8 @@ const reducer = (state = initialState, action) => {
     case 'SET_DATA': 
       return {
         ...state,
-        data: action.data
+        data: action.data,
+        totalPages: action.totalPages
       };
     case 'SET_DATA_BY_ID': 
       return {

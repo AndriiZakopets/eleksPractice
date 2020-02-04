@@ -6,21 +6,13 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_SORTING': 
+    case 'SET_SETTINGS': 
       return {
         ...state,
-        sorting: action.sorting
+        sorting: action.settings.sorting,
+        page: action.settings.page,
+        searchQuery: action.settings.searchQuery
       };
-    case 'SET_PAGE': 
-      return {
-        ...state,
-        page: action.page
-      };
-    case 'SET_SEARCH_QUERY':
-      return {
-        ...state,
-        searchQuery: action.searchQuery
-      }
     default: 
       return state;
   }

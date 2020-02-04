@@ -17,8 +17,8 @@ const REQUEST_MAP = {
 }
 
 export default function CatalogContainer({ history }) {
-  const data = useSelector(state => state.data);
-  const dataById = useSelector(state => state.dataById);
+  const data = useSelector(state => state.appData.data);
+  const dataById = useSelector(state => state.appData.dataById);
   const settings = useSelector(state => state.settings);
 
   const dispatch = useDispatch();
@@ -45,6 +45,9 @@ export default function CatalogContainer({ history }) {
         ...dataById,
         ...additionalDataById
       }));
+    })
+    .catch(error => {
+      console.log(error);
     })
   }, [settings]);
 

@@ -1,28 +1,27 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import Filters from '../components/Filters';
 import debounce from 'lodash/debounce';
 import { useSelector, useDispatch } from 'react-redux';
-import actions from '../actions/reducerActions';
+import settingsActions from '../actions/settingsActions';
 
 function FiltersContainer() {
+  const [tempSearchQuery, setTempSearchQuery] = useState(''); 
   const settings = useSelector(state => state.settings);
-  const tempSearchQuery = useSelector(state => state.tempSearchQuery);
-  console.log(settings.searchQuery);
 
   const dispatch = useDispatch();
 
   const changeSettings = (prevSettings, newSettings = {}) => {
-    dispatch(actions.setSettings({
+    dispatch(settingsActions.setSettings({
       ...prevSettings,
       page: 1,
       ...newSettings
     }));
-  }
+  };
 
-  const changeSettingsDebounced = useCallback(debounce(changeSettings, 1000), []);
+  const changeSettingsDebounced = useCallback(debounce(changeSettings, 400), []);
 
   const onSearchQueryChange = e => {
-    dispatch(actions.setTempSearchQuery(e.target.value));
+    setTempSearchQuery(e.target.value);
     changeSettingsDebounced(settings, { searchQuery: e.target.value });
   }
 

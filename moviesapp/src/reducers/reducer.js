@@ -6,8 +6,7 @@ const initialState = {
     sorting: localStorage.getItem('sorting') || 'trending',
     page: localStorage.getItem('page') || 1,
     searchQuery: ''
-  },
-  tempSearchQuery: ''
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -32,11 +31,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         settings: action.settings
       };
-    case "SET_TEMP_SEARCH_QUERY":
-      return {
-        ...state,
-        tempSearchQuery: action.tempSearchQuery
-      }
     default: 
       return state;
   }

@@ -1,23 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import API from '../API';
+import React from 'react';
 
-function Catalog(props) {
-  const id = props.match.params.id;
-  const [movie, setMovie] = useState({});
-
-  useEffect(() => {
-    if (props.dataById[id]) {
-      setMovie({
-        ...props.dataById[id]
-      });
-    } else {
-      API.getDetails(id)
-      .then(movie => {
-        setMovie({ ...movie });
-      });
-    }
-  }, [id]);
-
+function CatalogItem({ movie }) {
+  console.log(movie);
   return (
     <div className="container">
       <img 
@@ -38,4 +22,4 @@ function Catalog(props) {
   );
 }
 
-export default React.memo(Catalog);
+export default CatalogItem;

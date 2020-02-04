@@ -22,11 +22,5 @@ export default {
       type: 'SET_SETTINGS',
       settings
     }
-  },
-  setTempSearchQuery(tempSearchQuery) {
-    return {
-      type: 'SET_TEMP_SEARCH_QUERY',
-      tempSearchQuery
-    }
   }
 }

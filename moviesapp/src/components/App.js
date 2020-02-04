@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/App.css';
-import API from '../API'
 import CatalogContainer from '../containers/CatalogContainer.js';
-import CatalogItem from './CatalogItem';
+import CatalogItemContainer from '../containers/CatalogItemContainer';
 import {
   BrowserRouter as Router,
   Route,
@@ -21,7 +20,7 @@ export default function App() {
             />
             <Route
               path='/catalog/:id'
-              component={CatalogItem}
+              component={CatalogItemContainer}
             />
         </Switch>
       </Router>
