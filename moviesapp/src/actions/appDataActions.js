@@ -16,10 +16,10 @@ export default {
     }
   },
   
-  setData({ data, totalPages }) {
+  setData({ data, totalResults }) {
     return {
       type: 'SET_DATA',
-      payload: { data, totalPages }
+      payload: { data, totalResults }
     }
   },
 
@@ -27,13 +27,6 @@ export default {
     return {
       type: 'SET_DATA_BY_ID',
       payload: dataById
-    }
-  },
-  
-  setTotalPages(totalPages) {
-    return {
-      type: 'SET_TOTAL_PAGES',
-      payload: totalPages
     }
   }
 }

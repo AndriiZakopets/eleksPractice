@@ -1,11 +1,13 @@
 import React from 'react';
 import FiltersContainer from '../containers/FiltersContainer';
 import ListItem from './ListItem';
+import PaginationContainer from '../containers/PaginationContainer';
 
 function Catalog({ redirect, data }) {;
   return (
     <div className="Catalog">
       <FiltersContainer />
+      <PaginationContainer />
       <div className="list">
         {
           data ? data.map(movie => (

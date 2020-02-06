@@ -11,9 +11,9 @@ const reducer = (state = initialState, action) => {
     case 'SET_SETTINGS': 
       return {
         ...state,
-        sorting: action.payload.sorting,
-        page: action.payload.page,
-        searchQuery: action.payload.searchQuery
+        sorting: action.payload.sorting || state.sorting,
+        page: action.payload.page || 1,
+        searchQuery: action.payload.searchQuery || ''
       };
     default: 
       return state;

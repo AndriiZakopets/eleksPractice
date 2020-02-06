@@ -12,11 +12,11 @@ const updateData = async (requestFunc, dispatch) => {
   dispatch(appDataActions.setFetching(true, false));
 
   try {
-    const { results, total_pages } = await requestFunc();
+    const { results, total_results } = await requestFunc();
     dispatch(appDataActions.setDataById({
       ...additionalDataById(results)
     }));
-    dispatch(appDataActions.setData({ data: results, totalPages: total_pages}));
+    dispatch(appDataActions.setData({ data: results, totalResults: total_results }));
     dispatch(appDataActions.setFetching(false, true));
   } catch (error) {
     dispatch(appDataActions.setError('error'));

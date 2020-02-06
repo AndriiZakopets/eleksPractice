@@ -4,7 +4,7 @@ const initialState = {
   error: null,
   data: [],
   dataById: {},
-  totalPages: 0
+  totalResults: 0
 };
 
 const reducer = (state = initialState, action) => {
@@ -24,7 +24,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.payload.data,
-        totalPages: action.payload.totalPages
+        totalResults: action.payload.totalResults
       };
     case 'SET_DATA_BY_ID': 
       return {
