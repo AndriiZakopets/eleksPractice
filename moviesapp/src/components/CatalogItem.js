@@ -1,7 +1,6 @@
 import React from 'react';
 
 function CatalogItem({ movie }) {
-  console.log(movie);
   return (
     <div className="container">
       <img 

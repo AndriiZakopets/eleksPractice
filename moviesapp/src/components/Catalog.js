@@ -8,13 +8,13 @@ function Catalog({ redirect, data }) {;
       <FiltersContainer />
       <div className="list">
         {
-          data.map(movie => (
+          data ? data.map(movie => (
             <ListItem
               handleClick={() => redirect(movie.id)}
               movie={movie}
               key={movie.id}
             />
-          ))
+          )) : false
         }
       </div>
     </div>

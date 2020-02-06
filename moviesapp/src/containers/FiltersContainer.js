@@ -3,10 +3,14 @@ import Filters from '../components/Filters';
 import debounce from 'lodash/debounce';
 import { useSelector, useDispatch } from 'react-redux';
 import settingsActions from '../actions/settingsActions';
+import { SORTINGS } from '../constants';
 
 function FiltersContainer() {
   const [tempSearchQuery, setTempSearchQuery] = useState(''); 
   const settings = useSelector(state => state.settings);
+  const isFetching = useSelector(state => state.appData.isFetching);
+  const isFetched = useSelector(state => state.appData.isFetched);
+  const fetchError = useSelector(state => state.appData.error);
 
   const dispatch = useDispatch();
 
@@ -35,6 +39,10 @@ function FiltersContainer() {
       onSearchQueryChange={onSearchQueryChange}
       searchQuery={tempSearchQuery}
       sorting={settings.sorting}
+      sortingArr={SORTINGS}
+      isFetching={isFetching}
+      isFetched={isFetched}
+      error={fetchError}
     />
   );
 }

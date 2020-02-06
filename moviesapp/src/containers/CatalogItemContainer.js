@@ -1,29 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import CatalogItem from '../components/CatalogItem';
-import API from '../API';
-import { useSelector } from 'react-redux';
+import { getMovieById } from '../actions/asyncActions';
+import { useSelector, useDispatch } from 'react-redux';
 
 function CatalogItemContainer(props) {
   const id = props.match.params.id;
-  const dataById = useSelector(state => state.dataById);
-  const [movie, setMovie] = useState({});
+  const dataById = useSelector(state => state.appData.dataById);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (dataById[id]) {
-      setMovie({
-        ...dataById[id]
-      });
-    } else {
-      API.getDetails(id)
-      .then(movie => {
-        setMovie({ ...movie });
-      });
+    if (!dataById[id]) {
+      dispatch(getMovieById(id))
     }
   }, [id]);
 
   return (
     <CatalogItem
-        movie={movie}
+        movie={dataById[id]}
     />
   );
 }
