@@ -12,8 +12,7 @@ const reducer = (state = initialState, action) => {
     case 'SET_FETCHING':
       return {
         ...state,
-        isFetching: action.payload.isFetching,
-        isFetched: action.payload.isFetched
+        ...action.payload
       };
     case 'SET_ERROR':
       return {
@@ -29,8 +28,10 @@ const reducer = (state = initialState, action) => {
     case 'SET_DATA_BY_ID': 
       return {
         ...state,
-        dataById: state.dataById,
-        dataById: action.payload
+        dataById: {
+          ...state.dataById, 
+          ...action.payload
+        }
       };
     default: 
       return state;

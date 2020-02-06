@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CatalogItem({ movie }) {
+function CatalogItem({ movie = {} }) {
   return (
     <div className="container">
       <img 

@@ -9,6 +9,7 @@ function CatalogItemContainer(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(id, dataById[id])
     if (!dataById[id]) {
       dispatch(getMovieById(id))
     }
@@ -16,9 +17,9 @@ function CatalogItemContainer(props) {
 
   return (
     <CatalogItem
-        movie={dataById[id]}
+      movie={dataById[id]}
     />
-  );
+  )
 }
 
 export default React.memo(CatalogItemContainer);

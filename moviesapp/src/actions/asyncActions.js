@@ -29,8 +29,9 @@ export const getMovieById = id => async dispatch => {
 
   try {
     const response = await API.getDetails(id);
+
     dispatch(appDataActions.setDataById({
-      ...additionalDataById(response)
+      ...additionalDataById([response])
     }));
     dispatch(appDataActions.setFetching(false, true));
   }
@@ -40,10 +41,79 @@ export const getMovieById = id => async dispatch => {
   }
 };
 
-export const getMovieByQuery = settings => dispatch => {
-  updateData(() => API.getMovieByQuery(settings), dispatch);
+export const getMovieByQuery = (...args) => dispatch => {
+  updateData(() => API.getMovieByQuery(...args), dispatch);
 };
 
 export const discoverMovies = settings => async dispatch => {
   updateData(() => API.getMovieDiscover(settings), dispatch);
 }
+
+
+export const asyncActionFactory = (apiFunc, fetchingAction, fulfillledAction, rejectedAction, section) =>
+  (...args) => async dispatch => {
+    dispatch(fetchingAction(section, ...args));
+
+    try {
+      const response = await apiFunc();
+
+      dispatch(fulfillledAction(response, section, ...args));
+    } catch (error) {
+      dispatch(rejectedAction(error, section, ...args));
+    }
+  }
+
+// const state = {
+//   movies: {
+//     items: [],
+//     itemsById: {},
+//     isFetching: false,
+//     isFetched: false
+//   },
+//   ratings: {
+//     items: [],
+//     itemsById: {},
+//     isFetching: false,
+//     isFetched: false
+//   },
+//   users: {
+//     items: [],
+//     itemsById: {},
+//     isFetching: false,
+//     isFetched: false
+//   }
+// }
+
+// const startFetching = (section, query, age) => {
+//   return {
+//     type: 'SET_FETCHING',
+//     payload: {
+//       section,
+//       query,
+//       age
+//     }
+//   };
+// };
+
+// const getMovies = asyncActionFactory(API.getMovieById, startFetching, successAction, rejectAction, 'movies')
+// const getRating = asyncActionFactory(API.getRatings, startFetching, successAction, rejectAction, 'ratings')
+
+// getMovies('1917', 123)
+
+// startFetching('movies', '1917', 123)
+
+
+// const reducer = (state = initialState, action = {}) => {
+//   const { type, payload } = action;
+
+//   switch (action.type) {
+//     case 'SET_FETCHING':
+//       return {
+//         ...state,
+//         [payload.section]: {
+//           ...state[payload.section],
+//           isFetching: true
+//         }
+//       };
+//     }
+// }

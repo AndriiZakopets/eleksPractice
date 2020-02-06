@@ -13,7 +13,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         sorting: action.payload.sorting || state.sorting,
         page: action.payload.page || 1,
-        searchQuery: action.payload.searchQuery || ''
+        searchQuery: (action.payload.searchQuery === undefined ? state.searchQuery : action.payload.searchQuery)
       };
     default: 
       return state;
@@ -21,3 +21,5 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
+
+// react-beautiful-dnd

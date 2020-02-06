@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMovieByQuery, discoverMovies } from '../actions/asyncActions';
 
-export default function CatalogContainer({ history }) {
+export default function CatalogContainer({ history, match }) {
   const data = useSelector(state => state.appData.data);
   const settings = useSelector(state => state.settings);
 
@@ -11,6 +11,7 @@ export default function CatalogContainer({ history }) {
 
   useEffect(() => {
     const { searchQuery, sorting, page } = settings;
+    console.log(settings);
     const requestAction = searchQuery.trim() ? getMovieByQuery : discoverMovies;
 
     localStorage.setItem('page', page);
@@ -18,9 +19,8 @@ export default function CatalogContainer({ history }) {
     dispatch(requestAction(settings));
   }, [settings]);
 
-
   const redirect = id => {
-    history.push(`catalog/${id}`);
+    history.push(`${match.path}/${id}`);
   }
 
   return (
