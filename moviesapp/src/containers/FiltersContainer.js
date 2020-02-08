@@ -5,12 +5,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSettings } from '../actions/settingsActions';
 import { SORTINGS } from '../constants';
 
-function FiltersContainer() {
-  const settings = useSelector(state => state.settings);
-  const [tempSearchQuery, setTempSearchQuery] = useState(settings.searchQuery); 
-  const isFetching = useSelector(state => state.appData.isFetching);
-  const isFetched = useSelector(state => state.appData.isFetched);
-  const fetchError = useSelector(state => state.appData.error);
+export default function FiltersContainer() {
+  const { sorting, searchQuery } = useSelector(state => state.settings);
+  const { isFetching, isFetched, fetchError } = useSelector(state => state.movies);
+
+  const [tempSearchQuery, setTempSearchQuery] = useState(searchQuery); 
 
   const dispatch = useDispatch();
 
@@ -35,13 +34,11 @@ function FiltersContainer() {
       onSortingChange={onSortingChange}
       onSearchQueryChange={onSearchQueryChange}
       searchQuery={tempSearchQuery}
-      sorting={settings.sorting}
-      sortingArr={SORTINGS}
+      sorting={sorting}
+      sortingKeys={SORTINGS}
       isFetching={isFetching}
       isFetched={isFetched}
       error={fetchError}
     />
   );
 }
-
-export default FiltersContainer;

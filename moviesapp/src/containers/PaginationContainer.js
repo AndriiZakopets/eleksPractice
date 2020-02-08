@@ -4,15 +4,17 @@ import Pagination from 'react-js-pagination';
 import { setSettings } from '../actions/settingsActions';
 import '../styles/Pagination.css';
 
-function PaginationContainer() {
+export default function PaginationContainer() {
   const { page } = useSelector(state => state.settings);
-  const totalResults = useSelector(state => state.appData.totalResults);
+  const { totalResults } = useSelector(state => state.movies);
+
+  const [activePage, setActivePage] = useState(+page);
+  
   const dispatch = useDispatch();
-  const [activePage, setActivePage] = useState(page)
 
   const handlePageChange = pageNumber => {
     setActivePage(pageNumber);
-    dispatch(setSettings({ page: pageNumber }))
+    dispatch(setSettings({ page: pageNumber }));
   }
 
   useEffect(() => {
@@ -25,10 +27,8 @@ function PaginationContainer() {
       activePage={activePage}
       itemsCountPerPage={20}
       totalItemsCount={totalResults}
-      pageRangeDisplayed={10}
+      pageRangeDisplayed={9}
       onChange={handlePageChange}
     />
   );
 }
-
-export default PaginationContainer;

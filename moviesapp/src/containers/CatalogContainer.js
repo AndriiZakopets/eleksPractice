@@ -4,18 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMovieByQuery, discoverMovies } from '../actions/asyncActions';
 
 export default function CatalogContainer({ history, match }) {
-  const data = useSelector(state => state.appData.data);
   const settings = useSelector(state => state.settings);
+  const { data } = useSelector(state => state.movies);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     const { searchQuery, sorting, page } = settings;
-    console.log(settings);
     const requestAction = searchQuery.trim() ? getMovieByQuery : discoverMovies;
-
-    localStorage.setItem('page', page);
-    localStorage.setItem('sorting', sorting);
+    
+    localStorage.setItem('page', JSON.stringify({ data: page }));
+    localStorage.setItem('sorting', JSON.stringify({ data: sorting }));
     dispatch(requestAction(settings));
   }, [settings]);
 
@@ -23,10 +22,13 @@ export default function CatalogContainer({ history, match }) {
     history.push(`${match.path}/${id}`);
   }
 
+  const getRoute = id => `${match.path}/${id}`;
+
   return (
     <Catalog
       data={data}
       redirect={redirect}
+      getRoute={getRoute}
     />
   )
 }

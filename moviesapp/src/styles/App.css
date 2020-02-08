@@ -47,6 +47,11 @@
   }
 }
 
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 .Catalog {
   display: flex;
   flex-direction: column;
@@ -112,8 +117,9 @@
 }
 
 .image-content {
-  object-fit: scale-down;
+  object-fit: cover;
   height: 100%;
+  width: 120px
 }
 
 .info {
@@ -125,6 +131,7 @@
 }
 
 .title {
+  margin: 0;
   font-weight: 600;
   font-size: 1.1em;
   line-height: 1.1em;

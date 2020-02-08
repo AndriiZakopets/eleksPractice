@@ -1,22 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-function ListItem({ handleClick, movie }) {
+function ListItem({ imageOnClick, movie, routePath }) {
   return (
     <div className="ListItem">
       <img 
         className="link image-content" 
-        onClick={handleClick} 
+        onClick={imageOnClick} 
         src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} 
         alt={movie.title}
+        onError={(e) => {e.target.onerror = null; e.target.src="https://via.placeholder.com/120x180?text=IMAGE%20NOT%20FOUND"} }
       />
       <div className="info">
-        <div className="title-date">
-          <div onClick={handleClick} className="title link">
-            {movie.title}
-          </div>
-        </div>
+        <Link to={routePath} className="title link">
+          {movie.title}
+        </Link>
         <p className="overview">{movie.overview}</p>
-        <p onClick={handleClick} className="view-more link">More Info</p>
+        <Link className="view-more link" to={routePath}>More Info</Link>
       </div>
     </div>
   );

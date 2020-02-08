@@ -8,6 +8,7 @@ import {
   Switch
 } from 'react-router-dom';
 import { Redirect } from 'react-router';
+import DragContainer from '../Beautiful-dnd/DragContainer';
 
 export default function App() {
   return (
@@ -22,6 +23,10 @@ export default function App() {
             <Route
               path='/catalog/:id'
               component={CatalogItemContainer}
+            />
+            <Route 
+              path='/beautiful'
+              component={DragContainer}
             />
             <Redirect to='/catalog' />
         </Switch>

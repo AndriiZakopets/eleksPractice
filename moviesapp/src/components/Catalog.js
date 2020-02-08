@@ -3,20 +3,21 @@ import FiltersContainer from '../containers/FiltersContainer';
 import ListItem from './ListItem';
 import PaginationContainer from '../containers/PaginationContainer';
 
-function Catalog({ redirect, data }) {;
+function Catalog({ redirect, data, getRoute }) {
   return (
     <div className="Catalog">
       <FiltersContainer />
       <PaginationContainer />
       <div className="list">
         {
-          data ? data.map(movie => (
+          data.length > 0 ? data.map(movie => (
             <ListItem
-              handleClick={() => redirect(movie.id)}
+              routePath={getRoute(movie.id)}
+              imageOnClick={() => redirect(movie.id)}
               movie={movie}
               key={movie.id}
             />
-          )) : false
+          )) : 'There are no movies that matched your query.'
         }
       </div>
     </div>

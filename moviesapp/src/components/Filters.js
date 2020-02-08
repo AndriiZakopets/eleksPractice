@@ -9,7 +9,7 @@ function Filters({
   onSearchQueryChange,
   searchQuery,
   sorting,
-  sortingArr,
+  sortingKeys,
   isFetching,
   isFetched,
   error
@@ -32,9 +32,9 @@ function Filters({
         onChange={onSortingChange}
         value={sorting}
       >
-        {sortingArr.map((sortingElem, i) => (
-          <MenuItem value={sortingElem} key={i}>
-            {sortingElem}
+        {sortingKeys.map((el, i) => (
+          <MenuItem value={el[0]} key={i}>
+            {el[1]}
           </MenuItem>
         ))}
       </Select>

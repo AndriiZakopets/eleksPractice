@@ -3,9 +3,10 @@ import CatalogItem from '../components/CatalogItem';
 import { getMovieById } from '../actions/asyncActions';
 import { useSelector, useDispatch } from 'react-redux';
 
-function CatalogItemContainer(props) {
+export default function CatalogItemContainer(props) {
+  const { dataById } = useSelector(state => state.movies);
   const id = props.match.params.id;
-  const dataById = useSelector(state => state.appData.dataById);
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,5 +22,3 @@ function CatalogItemContainer(props) {
     />
   )
 }
-
-export default React.memo(CatalogItemContainer);

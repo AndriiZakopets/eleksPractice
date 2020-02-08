@@ -1,8 +1,11 @@
 import { SORTINGS } from '../constants';
 
+const storageSorting = localStorage.getItem('sorting');
+const storagePage = localStorage.getItem('page')
+
 const initialState = {
-  sorting: localStorage.getItem('sorting') || SORTINGS[0],
-  page: localStorage.getItem('page') || 1,
+  sorting: storageSorting ? JSON.parse(storageSorting).data : SORTINGS[0][0],
+  page: storagePage ? JSON.parse(storagePage).data : 1,
   searchQuery: ''
 };
 
@@ -11,9 +14,8 @@ const reducer = (state = initialState, action) => {
     case 'SET_SETTINGS': 
       return {
         ...state,
-        sorting: action.payload.sorting || state.sorting,
-        page: action.payload.page || 1,
-        searchQuery: (action.payload.searchQuery === undefined ? state.searchQuery : action.payload.searchQuery)
+        page: 1,
+        ...action.payload
       };
     default: 
       return state;

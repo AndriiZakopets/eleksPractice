@@ -1,16 +1,12 @@
 export const SORTINGS = [
-  /* default */ 'popularity.desc',
-  'popularity.asc',
-  'release_date.asc',
-  'release_date.desc',
-  'revenue.asc',
-  'revenue.desc',
-  'primary_release_date.asc',
-  'primary_release_date.desc',
-  'original_title.asc',
-  'original_title.desc',
-  'vote_average.asc',
-  'vote_average.desc',
-  'vote_count.asc',
-  'vote_count.desc'
+  ['popularity.desc', 'Popularity Descending'],
+  ['popularity.asc', 'Popularity Ascending'],
+  ['vote_average.desc', 'Rating Descending'],
+  ['vote_average.asc', 'Rating Ascending'],
+  ['release_date.desc', 'Release Date Descending'],
+  ['release_date.asc', 'Release Date Ascending'],
 ];
+
+export const START_FETCHING = 'START_FETCHING';
+export const SUCCESS_ACTION = 'SUCCESS_ACTION';
+export const SET_ERROR = 'SET_ERROR';
