@@ -11,7 +11,7 @@ function CatalogItem({ movie = {} }) {
           color: 'blue' 
         }}
       >
-        back...
+        catalog...
       </Link>
       <img 
         className="CatalogItem_image-content" 

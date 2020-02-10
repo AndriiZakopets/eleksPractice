@@ -8,11 +8,13 @@ import {
   Switch
 } from 'react-router-dom';
 import { Redirect } from 'react-router';
-import DragContainer from '../Beautiful-dnd/DragContainer';
+import WatchListContainer from '../containers/WatchListContainer';
+import ReactNotification from 'react-notifications-component';
 
 export default function App() {
   return (
     <div className="App">
+      <ReactNotification />
       <Router>
         <Switch>
             <Route
@@ -25,8 +27,8 @@ export default function App() {
               component={CatalogItemContainer}
             />
             <Route 
-              path='/beautiful'
-              component={DragContainer}
+              path='/watchlist'
+              component={WatchListContainer}
             />
             <Redirect to='/catalog' />
         </Switch>

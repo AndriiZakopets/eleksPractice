@@ -1,4 +1,4 @@
-import { SORTINGS } from '../constants';
+import { SORTINGS, SET_SETTINGS } from '../constants';
 
 const storageSorting = localStorage.getItem('sorting');
 const storagePage = localStorage.getItem('page')
@@ -10,12 +10,13 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'SET_SETTINGS': 
+  const { type, payload } = action;
+  switch (type) {
+    case SET_SETTINGS: 
       return {
         ...state,
         page: 1,
-        ...action.payload
+        ...payload
       };
     default: 
       return state;
@@ -23,5 +24,3 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
-
-// react-beautiful-dnd

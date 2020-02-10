@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function ListItem({ imageOnClick, movie, routePath }) {
+function ListItem({ imageOnClick, movie, routePath, addToWatchList }) {
   return (
     <div className="ListItem">
       <img 
@@ -17,6 +17,7 @@ function ListItem({ imageOnClick, movie, routePath }) {
         </Link>
         <p className="overview">{movie.overview}</p>
         <Link className="view-more link" to={routePath}>More Info</Link>
+        <div style={{cursor: 'pointer'}} onClick={addToWatchList}>Add to watch list</div>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import Catalog from '../components/Catalog';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMovieByQuery, discoverMovies } from '../actions/asyncActions';
+import { addMovie } from '../actions/WatchListActions';
 
 export default function CatalogContainer({ history, match }) {
   const settings = useSelector(state => state.settings);
@@ -24,11 +25,16 @@ export default function CatalogContainer({ history, match }) {
 
   const getRoute = id => `${match.path}/${id}`;
 
+  const addToWatchList = movie => {
+    dispatch(addMovie(movie));
+  }
+
   return (
     <Catalog
       data={data}
       redirect={redirect}
       getRoute={getRoute}
+      addToWatchList={addToWatchList}
     />
   )
 }

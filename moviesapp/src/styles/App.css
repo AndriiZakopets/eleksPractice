@@ -144,3 +144,22 @@ a {
 .link {
   cursor: pointer;
 }
+
+.watch-list {
+  margin: 8px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  padding: 8px
+}
+
+.watch-list-item {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  padding: 8px;
+}
+
+.watch-list-item-container {
+  padding-bottom: 8px;
+}
