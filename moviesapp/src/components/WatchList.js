@@ -25,14 +25,18 @@ export default function WatchList({ data, removeFromWatchList }) {
           <h1>
             WatchList
           </h1>
-          {data.watchList.map((movieId, index) => (
-            <WatchListRow 
-              removeFromWatchList={() => removeFromWatchList(index)}
-              key={movieId}
-              movie={data.watchIds[movieId]}
-              index={index}
-            />
-          ))}
+          {
+            data.watchList.length > 0 ? 
+              data.watchList.map((movieId, index) => (
+                <WatchListRow 
+                  removeFromWatchList={() => removeFromWatchList(index)}
+                  key={movieId}
+                  movie={data.watchIds[movieId]}
+                  index={index}
+                />
+              )) : 
+              'Watchlist is empty.'
+          }
           {provided.placeholder}
         </div>
       )}

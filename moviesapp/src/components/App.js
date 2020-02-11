@@ -9,12 +9,10 @@ import {
 } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import WatchListContainer from '../containers/WatchListContainer';
-import ReactNotification from 'react-notifications-component';
 
 export default function App() {
   return (
     <div className="App">
-      <ReactNotification />
       <Router>
         <Switch>
             <Route
