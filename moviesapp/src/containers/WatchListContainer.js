@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 import WatchList from '../components/WatchList';
-import { changeOrder, removeMovie } from '../actions/WatchListActions';
+import { changeOrder, removeMovieIndex } from '../actions/WatchListActions';
 
 export default function WatchListContainer() {
-  const data = useSelector(state => state.watchList);
+  const watchList = useSelector(state => state.watchList);
 
   const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ export default function WatchListContainer() {
   }
 
   const removeFromWatchList = movieId => {
-    dispatch(removeMovie(movieId));
+    dispatch(removeMovieIndex(movieId));
   }
 
   return (
@@ -35,7 +35,7 @@ export default function WatchListContainer() {
       onDragEnd={onDragEnd}
     >
       <WatchList 
-        data={data}
+        watchList={watchList}
         removeFromWatchList={removeFromWatchList}
       />
     </DragDropContext>

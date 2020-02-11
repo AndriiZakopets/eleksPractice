@@ -9,7 +9,7 @@ function ListItem({ imageOnClick, movie, routePath, addToWatchList }) {
         onClick={imageOnClick} 
         src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} 
         alt={movie.title}
-        onError={(e) => {e.target.onerror = null; e.target.src="https://via.placeholder.com/120x180?text=IMAGE%20NOT%20FOUND"} }
+        onError={e => {e.target.onerror = null; e.target.src="https://via.placeholder.com/120x180?text=IMAGE%20NOT%20FOUND"} }
       />
       <div className="info">
         <Link to={routePath} className="title link">

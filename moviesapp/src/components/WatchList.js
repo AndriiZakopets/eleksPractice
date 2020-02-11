@@ -3,7 +3,7 @@ import { Droppable } from 'react-beautiful-dnd';
 import WatchListRow from '../components/WatchListRow';
 import { Link } from 'react-router-dom';
 
-export default function WatchList({ data, removeFromWatchList }) {
+export default function WatchList({ watchList, removeFromWatchList }) {
   return (
     <div>
       <Link 
@@ -26,12 +26,12 @@ export default function WatchList({ data, removeFromWatchList }) {
             WatchList
           </h1>
           {
-            data.watchList.length > 0 ? 
-              data.watchList.map((movieId, index) => (
+            watchList.items.length > 0 ? 
+              watchList.items.map((movieId, index) => (
                 <WatchListRow 
                   removeFromWatchList={() => removeFromWatchList(index)}
                   key={movieId}
-                  movie={data.watchIds[movieId]}
+                  movie={watchList.itemsById[movieId]}
                   index={index}
                 />
               )) : 
